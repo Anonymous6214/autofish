@@ -15,11 +15,11 @@ public class ConfigManager {
 
     private Config config;
 
-    private FabricModAutofish modAutofish;
-    private Gson gson;
-    private File configFile;
+    private final FabricModAutofish modAutofish;
+    private final Gson gson;
+    private final File configFile;
 
-    private Executor executor = Executors.newSingleThreadExecutor();
+    private final Executor executor = Executors.newSingleThreadExecutor();
 
     public ConfigManager(FabricModAutofish modAutofish) {
         this.modAutofish = modAutofish;

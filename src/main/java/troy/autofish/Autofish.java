@@ -8,7 +8,7 @@ import net.minecraft.item.FishingRodItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.network.Packet;
+import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.GameMessageS2CPacket;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.StringHelper;
@@ -24,8 +24,8 @@ import java.util.regex.Pattern;
 
 public class Autofish {
 
-    private MinecraftClient client;
-    private FabricModAutofish modAutofish;
+    private final MinecraftClient client;
+    private final FabricModAutofish modAutofish;
     private FishMonitorMP fishMonitorMP;
 
     private boolean hookExists = false;
@@ -174,7 +174,7 @@ public class Autofish {
             for (int i = 0; i < inventory.main.size(); i++) {
                 ItemStack slot = inventory.main.get(i);
                 if (slot.getItem() == Items.FISHING_ROD) {
-                    if (i < 9) { //hotbar only
+                    if (i < 9) { //hot bar only
                         if (modAutofish.getConfig().isNoBreak()) {
                             if (slot.getDamage() < 63) {
                                 inventory.selectedSlot = i;
@@ -193,6 +193,7 @@ public class Autofish {
     public void useRod() {
         if(client.player != null && client.world != null) {
             Hand hand = getCorrectHand();
+            assert client.interactionManager != null;
             ActionResult actionResult = client.interactionManager.interactItem(client.player, hand);
             if (actionResult.isAccepted()) {
                 if (actionResult.shouldSwingHand()) {
@@ -209,6 +210,7 @@ public class Autofish {
 
     private Hand getCorrectHand() {
         if (!modAutofish.getConfig().isMultiRod()) {
+            assert client.player != null;
             if (isItemFishingRod(client.player.getOffHandStack().getItem())) return Hand.OFF_HAND;
         }
         return Hand.MAIN_HAND;
@@ -216,9 +218,13 @@ public class Autofish {
 
     private ItemStack getHeldItem() {
         if (!modAutofish.getConfig().isMultiRod()) {
-            if (isItemFishingRod(client.player.getOffHandStack().getItem()))
+            assert client.player != null;
+            if (isItemFishingRod(client.player.getOffHandStack().getItem())) {
+                assert client.player != null;
                 return client.player.getOffHandStack();
+            }
         }
+        assert client.player != null;
         return client.player.getMainHandStack();
     }
 

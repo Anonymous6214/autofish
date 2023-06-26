@@ -8,11 +8,11 @@ import java.util.List;
 
 public class AutofishScheduler {
 
-    private FabricModAutofish modAutofish;
+    private final FabricModAutofish modAutofish;
     //Actions that run once then delete from queue
-    private List<Action> queuedActions = new ArrayList<>();
+    private final List<Action> queuedActions = new ArrayList<>();
     //Actions that repeat indefinitely
-    private List<Action> repeatingActions = new ArrayList<>();
+    private final List<Action> repeatingActions = new ArrayList<>();
 
     //For tracking world change events. This is used to reset repeating action timers when a world is joined
     private boolean doesWorldExist;

@@ -4,10 +4,10 @@ import net.minecraft.util.Util;
 
 public class Action {
 
-    private ActionType actionType;
-    private long delay;
+    private final ActionType actionType;
+    private final long delay;
     private long timeToComplete;
-    private Runnable runnable;
+    private final Runnable runnable;
 
     public Action(ActionType actionType, long delay, Runnable runnable) {
         this.actionType = actionType;

@@ -7,7 +7,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.entity.Entity;
-import net.minecraft.network.Packet;
+import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.GameMessageS2CPacket;
 import org.lwjgl.glfw.GLFW;
 import troy.autofish.config.Config;
@@ -64,7 +64,7 @@ public class FabricModAutofish implements ClientModInitializer {
     }
 
     /**
-     * Mixin callback for catchingFish method of EntityFishHook (singleplayer detection)
+     * Mixin callback for catchingFish method of EntityFishHook (single-player detection)
      */
     public void tickFishingLogic(Entity owner, int ticksCatchable) {
         autofish.tickFishingLogic(owner, ticksCatchable);
